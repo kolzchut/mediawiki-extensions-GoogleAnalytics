@@ -6,19 +6,19 @@ class GoogleAnalyticsHooks {
 	/**
 	 * We don't want to log hidden categories
 	 */
-	function onOutputPageMakeCategoryLinks( OutputPage &$out, $categories, &$links ) {
+	static function onOutputPageMakeCategoryLinks( OutputPage &$out, $categories, &$links ) {
 		self::$normalCats = array_keys( $categories, 'normal' );
 
 		return true;
 	}
 
-	function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
+	static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
 		$out->addHeadItem( 'GoogleAnalyticsIntegration', self::addGoogleAnalytics( $out ) );
 
 		return true;
 	}
 
-	function addGoogleAnalytics( OutputPage &$out ) {
+	static function addGoogleAnalytics( OutputPage &$out ) {
 		global $wgGoogleAnalyticsAccount,
 		       $wgGoogleAnalyticsSegmentByGroup, $wgGoogleAnalyticsTrackExtLinks,
 		       $wgGoogleAnalyticsDomainName, $wgGoogleAnalyticsCookiePath,
@@ -173,7 +173,7 @@ JS;
 		return true;
 	}
 
-	function isIgnoredPage( Title $title ) {
+	static function isIgnoredPage( Title $title ) {
 		global $wgGoogleAnalyticsIgnoreNsIDs,
 		       $wgGoogleAnalyticsIgnorePages,
 		       $wgGoogleAnalyticsIgnoreSpecials;
